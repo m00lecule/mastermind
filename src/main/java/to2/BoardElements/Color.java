@@ -1,4 +1,4 @@
-package to2.main;
+package to2.BoardElements;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,7 +12,8 @@ public enum Color {
     CYAN,
     GREEN;
 
-    static Map<Color,String> coloursMap;
+    static Map<Color, String> coloursMap;
+
     static {
         coloursMap = new HashMap<>();
         coloursMap.put(Color.WHITE, "e0e0e0;");
@@ -24,7 +25,7 @@ public enum Color {
         coloursMap.put(Color.GREEN, "#00ff00;");
     }
 
-    public static String getColorHex(Color c){
+    public static String getColorHex(Color c) {
         return coloursMap.get(c);
     }
 

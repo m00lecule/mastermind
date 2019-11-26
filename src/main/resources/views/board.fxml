@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Scene xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="to2.controller.BorderPaneController">
+<Scene xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="to2.controller.BoardControler">
     <AnchorPane prefHeight="500.0" style="-fx-background-color: #8b4513">
       <children>
          <BorderPane prefHeight="598.0" prefWidth="814.0">
