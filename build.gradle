@@ -21,4 +21,4 @@ javafx {
     modules = [ 'javafx.controls', 'javafx.fxml' ]
 }
 
-mainClassName = "to2.Main"
+mainClassName = "to2.Mastermind"

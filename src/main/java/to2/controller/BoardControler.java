@@ -10,16 +10,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 
-public class BorderPaneController {
+/**
+ * Mastermind board controller - manipulates view adding more rows to the board.
+ */
+public class BoardControler {
 
-    public int getData() {
-        return data;
-    }
-
-    public void setData(int data) {
-        this.data = data;
-    }
-
+    //mocked data model
     private int data = 8;
 
     @FXML
@@ -46,15 +42,22 @@ public class BorderPaneController {
     private void initialize() {
 
         for (int rows = 0; rows<data; rows++){
-            Row r = new Row();
+            Row r = new Row(true);
             rowsList.add(r);
             vboxCentral.getChildren().add(r);
-            r.setDisable(true);
         }
 
         it = rowsList.listIterator(rowsList.size());
         currentRow = it.previous();
         currentRow.setDisable(false);
+    }
+
+    public int getData() {
+        return data;
+    }
+
+    public void setData(int data) {
+        this.data = data;
     }
 }
 
