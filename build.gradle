@@ -18,7 +18,7 @@ dependencies {
 }
 javafx {
     version = "13"
-    modules = [ 'javafx.controls' ]
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
 }
 
 mainClassName = "to2.Main"
