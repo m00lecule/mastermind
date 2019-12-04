@@ -1,8 +1,10 @@
 plugins {
     id 'java'
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.8'
 }
 
-group 'sr-935-zespol1'
+group 'zespol1'
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
@@ -14,3 +16,9 @@ repositories {
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
+javafx {
+    version = "13"
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
+}
+
+mainClassName = "to2.Mastermind"
