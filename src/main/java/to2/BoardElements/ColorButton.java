@@ -30,6 +30,8 @@ public class ColorButton extends Button {
         }
     }
 
+    public Color getColor() { return this.currentColor; }
+
     public void setColor(Color c) {
         this.currentColor = c;
         this.colorNumber = new ArrayList<Color>(Arrays.asList(Color.values())).indexOf(c);
