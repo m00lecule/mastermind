@@ -21,7 +21,9 @@ public class BoardControler {
     //mocked data model
     private int rowsNumber = 8;
 
-    private Game game = new Game(4, rowsNumber);
+    private int colorsNumer = 7;
+
+    private Game game = new Game(4, rowsNumber, colorsNumer);
 
     @FXML
     private VBox vboxCentral;

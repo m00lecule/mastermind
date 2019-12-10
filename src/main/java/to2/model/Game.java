@@ -5,6 +5,7 @@ import to2.BoardElements.Color;
 
 import java.util.*;
 import java.util.stream.IntStream;
+import java.lang.Math;
 
 public class Game {
 
@@ -13,8 +14,8 @@ public class Game {
 
     public int getScore() {
         if (!this.won)
-            return 0;
-        return /* difficulty factor, will change */1 * (rows - attempts + 1);
+            return 2;
+        return (int)(Math.pow(colors, fields) * (rows - attempts + 1)*Math.pow(1.2,(rows - attempts)) - /* TIME */0);
     }
 
     private int attempts;
@@ -23,15 +24,18 @@ public class Game {
 
     private int rows;
 
+    private int colors;
+
     public boolean wonGame() {
         return won;
     }
 
     private boolean won = false;
 
-    public Game(int fields, int rows) {
+    public Game(int fields, int rows, int colors) {
         this.fields = fields;
         this.rows = rows;
+        this.colors = colors;
         this.reset();
     }
 
@@ -72,7 +76,7 @@ public class Game {
 
         while (guessesIterator.hasNext()) {
             guessedColor = guessesIterator.next();
-            if (allColorsInSecretCode.contains(guessedColor)){
+            if (allColorsInSecretCode.contains(guessedColor)) {
                 matchedColors.add(Color.BLUE);
                 allColorsInSecretCode.remove(guessedColor);
             }
@@ -80,10 +84,8 @@ public class Game {
 
         Collections.shuffle(matchedColors);
 
-        if (guessedCorrectly == fields) won = true;
+        if (guessedCorrectly == fields){ this.won = true;}
 
         return matchedColors;
     }
-
-
 }
