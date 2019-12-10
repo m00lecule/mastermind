@@ -5,6 +5,7 @@ import to2.BoardElements.Color;
 
 import java.util.*;
 import java.util.stream.IntStream;
+import java.lang.Math;
 
 public class Game {
 
@@ -13,8 +14,8 @@ public class Game {
 
     public int getScore() {
         if (!this.won)
-            return 0;
-        return /* difficulty factor, will change */1 * (rows - attempts + 1);
+            return 2;
+        return (int)(Math.pow(colors, fields) * (rows - attempts + 1)*Math.pow(1.2,(rows - attempts)) - /* TIME */0);
     }
 
     private int attempts;
@@ -23,15 +24,18 @@ public class Game {
 
     private int rows;
 
+    private int colors;
+
     public boolean wonGame() {
         return won;
     }
 
     private boolean won = false;
 
-    public Game(int fields, int rows) {
+    public Game(int fields, int rows, int colors) {
         this.fields = fields;
         this.rows = rows;
+        this.colors = colors;
         this.reset();
     }
 
@@ -46,59 +50,42 @@ public class Game {
     }
 
     public List<Color> compareSequence(List<Color> guesses) {
-        List<Color> matchedColors = new LinkedList<>();
-        // Iterator<Color> secretIterator = secretSequence.iterator();
-        Iterator<Color> guessesIterator = guesses.iterator();
         this.attempts++;
+        List<Color> matchedColors = new LinkedList<>();
+        Iterator<Color> secretIterator = secretSequence.iterator();
+        Iterator<Color> guessesIterator = guesses.iterator();
 
         List<Color> allColorsInSecretCode = new LinkedList<>(secretSequence);
         List<Color> colorsInGuess = new LinkedList<>(guesses);
 
-        Color guessedColor;
-
+        Color guessedColor, secrectColor;
         int guessedCorrectly = 0;
 
-        int position = 0;
-
-        while (guessesIterator.hasNext()) {
+        while (guessesIterator.hasNext() && secretIterator.hasNext()) {
             guessedColor = guessesIterator.next();
-
-            if (secretSequence.get(position).equals(guessedColor)) {
+            secrectColor = secretIterator.next();
+            if (secrectColor.equals(guessedColor)) {
                 guessedCorrectly++;
                 allColorsInSecretCode.remove(guessedColor);
                 colorsInGuess.remove(guessedColor);
                 matchedColors.add(Color.RED);
             }
-//            if (guessColor.equals(secretIterator.next())) {
-//                score +=1;
-//                matchedColors.add(Color.RED);
-//            } else if (secretSequence.contains(guessColor)) {
-//                matchedColors.add(Color.BLUE);
-//                score +=2;
-//            }
-            position++;
         }
 
         guessesIterator = colorsInGuess.iterator();
 
         while (guessesIterator.hasNext()) {
             guessedColor = guessesIterator.next();
-            if (allColorsInSecretCode.contains(guessedColor)){
+            if (allColorsInSecretCode.contains(guessedColor)) {
                 matchedColors.add(Color.BLUE);
                 allColorsInSecretCode.remove(guessedColor);
             }
-
         }
-
 
         Collections.shuffle(matchedColors);
 
-        if (guessedCorrectly == fields) {
-            won = true;
-        }
+        if (guessedCorrectly == fields){ this.won = true;}
 
         return matchedColors;
     }
-
-
 }
