@@ -2,6 +2,7 @@ package to2.BoardElements;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 public enum Color {
     WHITE,
@@ -25,6 +26,7 @@ public enum Color {
         coloursMap.put(Color.GREEN, "#00ff00;");
     }
 
+    public static Color randomColor() { return Color.values()[new Random().nextInt(Color.values().length)];}
     public static String getColorHex(Color c) {
         return coloursMap.get(c);
     }
