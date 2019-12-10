@@ -29,10 +29,21 @@ public class BoardControler {
     @FXML
     private Button nextStep;
 
+    @FXML
+    private Button resetButton;
+
     private List<Row> rowsList = new LinkedList<>();
 
     private ListIterator<Row> it;
     private Row currentRow;
+
+    private void showPopup(String content, String header, String title) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION); //TODO: custom graphic (setGraphic)
+        alert.setContentText(content);
+        alert.setHeaderText(header);
+        alert.setTitle(title);
+        alert.show();
+    }
 
     @FXML
     private void handleNextStepAction(ActionEvent event) {
@@ -45,27 +56,24 @@ public class BoardControler {
         currentRow.updateCircles(result);
 
         if (game.wonGame()) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION); //TODO: custom graphic (setGraphic)
-            alert.setContentText("Your score: " + game.getScore());
-            alert.setHeaderText("You won!");
-            alert.setTitle("Congratulations!");
-            alert.show();
-
-            System.out.println(game.getScore());
+            showPopup("Your score: " + game.getScore(), "You won!", "Congratulations!");
         } else {
             if (it.hasPrevious()) {
                 currentRow = it.previous();
                 currentRow.setDisable(false);
             } else {
                 System.out.println(game.getScore());
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setContentText("Your score: 0");
-                alert.setHeaderText("You lost");
-                alert.setTitle("Not congratulations.");
-
-                alert.show();
+                showPopup("Your score: 0", "You lost", "Not congratulations.");
             }
         }
+    }
+
+    @FXML
+    private void handleResetAction(ActionEvent event) {
+        this.game.reset();
+        vboxCentral.getChildren().clear();
+        rowsList.clear();
+        initialize();
     }
 
     @FXML

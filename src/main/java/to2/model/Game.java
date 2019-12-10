@@ -46,37 +46,26 @@ public class Game {
     }
 
     public List<Color> compareSequence(List<Color> guesses) {
-        List<Color> matchedColors = new LinkedList<>();
-        // Iterator<Color> secretIterator = secretSequence.iterator();
-        Iterator<Color> guessesIterator = guesses.iterator();
         this.attempts++;
+        List<Color> matchedColors = new LinkedList<>();
+        Iterator<Color> secretIterator = secretSequence.iterator();
+        Iterator<Color> guessesIterator = guesses.iterator();
 
         List<Color> allColorsInSecretCode = new LinkedList<>(secretSequence);
         List<Color> colorsInGuess = new LinkedList<>(guesses);
 
-        Color guessedColor;
-
+        Color guessedColor, secrectColor;
         int guessedCorrectly = 0;
 
-        int position = 0;
-
-        while (guessesIterator.hasNext()) {
+        while (guessesIterator.hasNext() && secretIterator.hasNext()) {
             guessedColor = guessesIterator.next();
-
-            if (secretSequence.get(position).equals(guessedColor)) {
+            secrectColor = secretIterator.next();
+            if (secrectColor.equals(guessedColor)) {
                 guessedCorrectly++;
                 allColorsInSecretCode.remove(guessedColor);
                 colorsInGuess.remove(guessedColor);
                 matchedColors.add(Color.RED);
             }
-//            if (guessColor.equals(secretIterator.next())) {
-//                score +=1;
-//                matchedColors.add(Color.RED);
-//            } else if (secretSequence.contains(guessColor)) {
-//                matchedColors.add(Color.BLUE);
-//                score +=2;
-//            }
-            position++;
         }
 
         guessesIterator = colorsInGuess.iterator();
@@ -87,15 +76,11 @@ public class Game {
                 matchedColors.add(Color.BLUE);
                 allColorsInSecretCode.remove(guessedColor);
             }
-
         }
-
 
         Collections.shuffle(matchedColors);
 
-        if (guessedCorrectly == fields) {
-            won = true;
-        }
+        if (guessedCorrectly == fields) won = true;
 
         return matchedColors;
     }
