@@ -1,12 +1,14 @@
 package to2.model;
 
-import jdk.internal.net.http.common.Pair;
 import to2.BoardElements.Color;
 
 import java.util.*;
 import java.util.stream.IntStream;
 import java.lang.Math;
 
+/**
+ * Game class - holds information about current game, checks guesses, returns games score, creates code
+ */
 public class Game {
 
     private int fields;
@@ -14,8 +16,8 @@ public class Game {
 
     public int getScore() {
         if (!this.won)
-            return 2;
-        return (int)(Math.pow(colors, fields) * (rows - attempts + 1)*Math.pow(1.2,(rows - attempts)) - /* TIME */0);
+            return 0;
+        return (int) (Math.pow(colors, fields) * (rows - attempts + 1) * Math.pow(1.2, (rows - attempts)) - /* TIME */0);
     }
 
     private int attempts;
@@ -84,7 +86,9 @@ public class Game {
 
         Collections.shuffle(matchedColors);
 
-        if (guessedCorrectly == fields){ this.won = true;}
+        if (guessedCorrectly == fields) {
+            this.won = true;
+        }
 
         return matchedColors;
     }

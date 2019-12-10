@@ -21,9 +21,9 @@ public class BoardControler {
     //mocked data model
     private int rowsNumber = 8;
 
-    private int colorsNumer = 7;
+    private int colorsNumber = 7;
 
-    private Game game = new Game(4, rowsNumber, colorsNumer);
+    private Game game = new Game(4, rowsNumber, colorsNumber);
 
     @FXML
     private VBox vboxCentral;
@@ -40,6 +40,7 @@ public class BoardControler {
     private Row currentRow;
 
     private void showPopup(String content, String header, String title) {
+        this.nextStep.setDisable(true);
         Alert alert = new Alert(Alert.AlertType.INFORMATION); //TODO: custom graphic (setGraphic)
         alert.setContentText(content);
         alert.setHeaderText(header);
@@ -64,7 +65,6 @@ public class BoardControler {
                 currentRow = it.previous();
                 currentRow.setDisable(false);
             } else {
-                System.out.println(game.getScore());
                 showPopup("Your score: 0", "You lost", "Not congratulations.");
             }
         }
@@ -75,6 +75,7 @@ public class BoardControler {
         this.game.reset();
         vboxCentral.getChildren().clear();
         rowsList.clear();
+        this.nextStep.setDisable(false);
         initialize();
     }
 
@@ -92,11 +93,11 @@ public class BoardControler {
         currentRow.setDisable(false);
     }
 
-    public int getData() {
+    public int getRowsNumber() {
         return rowsNumber;
     }
 
-    public void setData(int rowsNumber) {
+    public void setRowsNumber(int rowsNumber) {
         this.rowsNumber = rowsNumber;
     }
 }

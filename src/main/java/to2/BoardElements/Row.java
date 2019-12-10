@@ -3,7 +3,6 @@ package to2.BoardElements;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Circle;
@@ -25,7 +24,7 @@ public class Row extends BorderPane {
 
     public Row() {
         this.setPadding(new Insets(10, 20, 10, 20));
-        this.setCenter(this.initalizeCentralGridPane());
+        this.setCenter(this.initializeCentralGridPane());
     }
 
     public Row(boolean setDisabled) {
@@ -33,7 +32,7 @@ public class Row extends BorderPane {
         this.setDisable(setDisabled);
     }
 
-    private Node initializeCircle(int i){
+    private Node initializeCircle(){
         Circle c = new Circle();
         c.setRadius(cricleRadix);
         c.setStyle("-fx-fill: #000000");
@@ -66,7 +65,7 @@ public class Row extends BorderPane {
         return bt;
     }
 
-    private Node initalizeCentralGridPane(){
+    private Node initializeCentralGridPane(){
         GridPane gp = new GridPane();
 
         for(int i = 0 ; i < 4 ; ++i)
@@ -78,7 +77,7 @@ public class Row extends BorderPane {
 
         for (int i =0; i<2; i++)
             for (int j =0; j<2; j++)
-                ingp.add(this.initializeCircle(i),i,j);
+                ingp.add(this.initializeCircle(),i,j);
 
         gp.add(ingp, 4, 0);
 
