@@ -16,10 +16,10 @@ import java.util.ListIterator;
 /**
  * Mastermind board controller - manipulates view adding more rows to the board.
  */
-public class BoardControler {
+public class BoardController {
 
     //mocked data model
-    private int rowsNumber = 8;
+    private int rowsNumber = 9;
 
     private int colorsNumber = 7;
 

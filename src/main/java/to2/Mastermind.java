@@ -3,11 +3,9 @@ package to2;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import to2.controller.BoardControler;
+import to2.controller.BoardController;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 
@@ -17,6 +15,7 @@ public class Mastermind extends Application {
     public void start(Stage primaryStage) {
 
         primaryStage.setTitle("Mastermind");
+        primaryStage.setResizable(false);
 
         FXMLLoader loader = new FXMLLoader();
 
@@ -24,7 +23,7 @@ public class Mastermind extends Application {
 
         try {
             Scene scene = (Scene) loader.load();
-            BoardControler bp = loader.getController();
+            BoardController bp = loader.getController();
             primaryStage.setScene(scene);
             primaryStage.show();
         } catch (IOException e) {
