@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Represents view of single row in Mastermind Game.
@@ -50,11 +51,7 @@ public class Row extends BorderPane {
     }
 
     public List<Color> getGuesses(){
-        List<Color> guesses = new LinkedList<>();
-        for(ColorButton b : buttons){
-            guesses.add(b.getColor());
-        }
-        return guesses;
+        return buttons.stream().map(ColorButton::getColor).collect(Collectors.toList());
     }
 
     private Node initializeButton(){
