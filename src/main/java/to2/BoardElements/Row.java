@@ -3,12 +3,11 @@ package to2.BoardElements;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -21,11 +20,11 @@ public class Row extends BorderPane {
     final private int bigButtonSize = 40;
     final private int cricleRadix = 5;
     final private List<Circle> circleList = new ArrayList<>();
-    final private List<Button> buttons = new LinkedList<>();
+    final private List<ColorButton> buttons = new LinkedList<>();
 
     public Row() {
         this.setPadding(new Insets(10, 20, 10, 20));
-        this.setCenter(this.initalizeCentralGridPane());
+        this.setCenter(this.initializeCentralGridPane());
     }
 
     public Row(boolean setDisabled) {
@@ -33,23 +32,40 @@ public class Row extends BorderPane {
         this.setDisable(setDisabled);
     }
 
-    private Node initializeCircle(int i){
+    private Node initializeCircle(){
         Circle c = new Circle();
         c.setRadius(cricleRadix);
-        c.setFill(i == 0 ? Color.RED : Color.WHITE);
+        c.setStyle("-fx-fill: #000000");
         circleList.add(c);
         return c;
     }
 
+    public void updateCircles(List<Color> results){
+        Iterator<Color> resultIterator = results.iterator();
+        Iterator<Circle> circleIterator = circleList.iterator();
+
+        while(resultIterator.hasNext()){
+            circleIterator.next().setStyle("-fx-fill: " + Color.getColorHex(resultIterator.next()));
+        }
+    }
+
+    public List<Color> getGuesses(){
+        List<Color> guesses = new LinkedList<>();
+        for(ColorButton b : buttons){
+            guesses.add(b.getColor());
+        }
+        return guesses;
+    }
+
     private Node initializeButton(){
-        Button bt = new ColorButton();
+        ColorButton bt = new ColorButton();
         bt.setPrefHeight(bigButtonSize);
         bt.setPrefWidth(bigButtonSize);
         buttons.add(bt);
         return bt;
     }
 
-    private Node initalizeCentralGridPane(){
+    private Node initializeCentralGridPane(){
         GridPane gp = new GridPane();
 
         for(int i = 0 ; i < 4 ; ++i)
@@ -61,7 +77,7 @@ public class Row extends BorderPane {
 
         for (int i =0; i<2; i++)
             for (int j =0; j<2; j++)
-                ingp.add(this.initializeCircle(i),i,j);
+                ingp.add(this.initializeCircle(),i,j);
 
         gp.add(ingp, 4, 0);
 
