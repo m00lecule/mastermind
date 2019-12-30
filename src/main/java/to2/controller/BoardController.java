@@ -1,5 +1,6 @@
 package to2.controller;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -8,6 +9,7 @@ import javafx.scene.layout.VBox;
 import to2.BoardElements.Color;
 import to2.BoardElements.Row;
 import to2.model.Game;
+import to2.model.GameSettings;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -18,12 +20,19 @@ import java.util.ListIterator;
  */
 public class BoardController {
 
-    //mocked data model
-    private int rowsNumber = 9;
+    void setSettings(GameSettings settings) {
+        this.rowsNumber = settings.getRows();
+        //TODO: make colors change influence the game
+        this.colorsNumber = settings.getColors();
+    }
 
-    private int colorsNumber = 7;
+//    private GameSettings settings;
 
-    private Game game = new Game(4, rowsNumber, colorsNumber);
+    private int rowsNumber;
+    private int colorsNumber;
+
+    //TODO: decide whether we want 4 fields or to make it dynamic
+    private Game game;
 
     @FXML
     private VBox vboxCentral;
@@ -31,8 +40,8 @@ public class BoardController {
     @FXML
     private Button nextStep;
 
-    @FXML
-    private Button resetButton;
+//    @FXML
+//    private Button resetButton;
 
     private List<Row> rowsList = new LinkedList<>();
 
@@ -82,24 +91,20 @@ public class BoardController {
     @FXML
     private void initialize() {
 
-        for (int rows = 0; rows < rowsNumber; rows++) {
-            Row r = new Row(true);
-            rowsList.add(r);
-            vboxCentral.getChildren().add(r);
-        }
+        Platform.runLater(() -> {
+            game = new Game(4, rowsNumber, colorsNumber);
+            for (int rows = 0; rows < rowsNumber; rows++) {
+                Row r = new Row(true);
+                rowsList.add(r);
+                vboxCentral.getChildren().add(r);
+            }
 
-        it = rowsList.listIterator(rowsList.size());
-        currentRow = it.previous();
-        currentRow.setDisable(false);
+            it = rowsList.listIterator(rowsList.size());
+            currentRow = it.previous();
+            currentRow.setDisable(false);
+        });
     }
 
-    public int getRowsNumber() {
-        return rowsNumber;
-    }
-
-    public void setRowsNumber(int rowsNumber) {
-        this.rowsNumber = rowsNumber;
-    }
 }
 
 

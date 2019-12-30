@@ -55,18 +55,17 @@ public class MenuController {
     @FXML
     private void handleOkAction(ActionEvent event) {
         settings.setColumns(columnsSpinner.getValue());
-        settings.setColumns(columnsSpinner.getValue());
-        settings.setColumns(columnsSpinner.getValue());
+        settings.setRows(rowsSpinner.getValue());
+        settings.setColors(colorsSpinner.getValue());
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Mastermind.class.getResource("/views/board.fxml"));
         Stage gameStage = new Stage();
         BoardController boardController;
         try {
-//            TODO: pass updated settings to boardController
-//            boardController = loader.getController();
-//            boardController.setSettings(settings);
             gameStage.setScene(loader.load());
+            boardController = loader.getController();
+            boardController.setSettings(settings);
             Stage current = (Stage) okButton.getScene().getWindow();
             gameStage.show();
             current.close();
