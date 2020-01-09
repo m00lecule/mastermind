@@ -44,7 +44,7 @@ public class Game {
     public void reset() {
         this.score = 0;
         this.secretSequence.clear();
-        IntStream.range(0, fields).forEach(i -> secretSequence.add(Color.randomColor()));
+        IntStream.range(0, fields).forEach(i -> secretSequence.add(Color.randomColor(colors)));
 
         System.out.println(secretSequence.toString());
         this.won = false;

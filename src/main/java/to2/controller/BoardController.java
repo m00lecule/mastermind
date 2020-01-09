@@ -107,7 +107,7 @@ public class BoardController {
         Platform.runLater(() -> {
             game = new Game(rowsNumber, colorsNumber);
             for (int rows = 0; rows < rowsNumber; rows++) {
-                Row r = new Row(true);
+                Row r = new Row(colorsNumber, true);
                 rowsList.add(r);
                 vboxCentral.getChildren().add(r);
             }

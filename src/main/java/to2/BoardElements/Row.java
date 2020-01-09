@@ -22,14 +22,16 @@ public class Row extends BorderPane {
     final private int cricleRadix = 5;
     final private List<Circle> circleList = new ArrayList<>();
     final private List<ColorButton> buttons = new LinkedList<>();
+    final private int colors;
 
-    public Row() {
+    private Row(int colors) {
+        this.colors = colors;
         this.setPadding(new Insets(10, 20, 10, 20));
         this.setCenter(this.initializeCentralGridPane());
     }
 
-    public Row(boolean setDisabled) {
-        this();
+    public Row(int colors, boolean setDisabled) {
+        this(colors);
         this.setDisable(setDisabled);
     }
 
@@ -55,7 +57,7 @@ public class Row extends BorderPane {
     }
 
     private Node initializeButton(){
-        ColorButton bt = new ColorButton();
+        ColorButton bt = new ColorButton(colors);
         bt.setPrefHeight(bigButtonSize);
         bt.setPrefWidth(bigButtonSize);
         buttons.add(bt);

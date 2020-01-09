@@ -92,7 +92,7 @@
                         <Font size="22.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="400.0" text="Highscores" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                  <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="400.0" text="Highscores" GridPane.columnIndex="1" GridPane.rowIndex="4" onAction="#handleScoresAction">
                      <font>
                         <Font size="22.0" />
                      </font>

@@ -4,10 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.control.*;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -87,13 +84,36 @@ public class MenuController {
         showLoginPopup();
     }
 
+    @FXML
+    private void handleScoresAction(ActionEvent event){
+        showHighscores();
+    }
+
+    private void showHighscores(){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("High scores");
+        alert.setGraphic(null);
+        alert.setHeaderText("High Scores:");
+        DialogPane dp = alert.getDialogPane();
+        TableView<String> table = new TableView<>();
+        TableColumn nickCol = new TableColumn("Nickname");
+        TableColumn mailCol = new TableColumn("email");
+        TableColumn scoreCol = new TableColumn("Score");
+        table.getColumns().addAll(nickCol, mailCol, scoreCol);
+        //TODO: populate table with DB content
+
+        dp.setContent(table);
+        menuAnchorPane.setEffect(new GaussianBlur());
+        alert.showAndWait();
+        menuAnchorPane.setEffect(null);
+    }
 
     private void showLoginPopup() {
+        //TODO: Replace with a view with auto-fill
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setContentText("TODO: ADD STUFF");
         alert.setHeaderText("PEPSI MAX");
         alert.setTitle("Log in");
-        //TODO: Michał skończ
         menuAnchorPane.setEffect(new GaussianBlur());
         alert.showAndWait();
         menuAnchorPane.setEffect(null);
