@@ -5,6 +5,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.effect.GaussianBlur;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import to2.BoardElements.Color;
 import to2.BoardElements.Row;
@@ -35,6 +37,9 @@ public class BoardController {
     private Game game;
 
     @FXML
+    private AnchorPane anchorPane;
+
+    @FXML
     private VBox vboxCentral;
 
     @FXML
@@ -54,7 +59,9 @@ public class BoardController {
         alert.setContentText(content);
         alert.setHeaderText(header);
         alert.setTitle(title);
-        alert.show();
+        anchorPane.setEffect(new GaussianBlur());
+        alert.showAndWait();
+        anchorPane.setEffect(null);
     }
 
     @FXML

@@ -3,6 +3,7 @@ package to2;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.effect.GaussianBlur;
 import javafx.stage.Stage;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

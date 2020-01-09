@@ -40,6 +40,8 @@ public class MenuController {
     private Button okButton;
     @FXML
     private Button quitButton;
+    @FXML
+    private Button loginButton;
 
     @FXML
     private void initialize() {
@@ -78,6 +80,11 @@ public class MenuController {
     private void handleQuitAction(ActionEvent event) {
         Stage current = (Stage) quitButton.getScene().getWindow();
         current.close();
+    }
+
+    @FXML
+    private void handleLoginAction(ActionEvent event){
+        //TODO: make the login window
     }
 }
 
