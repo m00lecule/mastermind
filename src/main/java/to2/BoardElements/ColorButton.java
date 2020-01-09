@@ -1,6 +1,10 @@
 package to2.BoardElements;
 
+import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
+
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,6 +25,17 @@ public class ColorButton extends Button {
 
     public ColorButton() {
         this.setStyle("-fx-background-color: " + Color.getColorHex(currentColor));
+        this.setOnMouseClicked(event -> handleClick(event));
+    }
+
+    private void handleClick(MouseEvent event) {
+        if (event.getButton() == MouseButton.PRIMARY) {
+            colorNumber = colorNumber < Color.values().length - 1 ? colorNumber + 1 : 0;
+        } else if (event.getButton() == MouseButton.SECONDARY) {
+            colorNumber = colorNumber > 0 ? colorNumber - 1 : Color.values().length - 1;
+        }
+        currentColor = Color.values()[colorNumber];
+        this.setStyle("-fx-background-color: " + Color.getColorHex(currentColor));
     }
 
     public ColorButton(boolean clickable) {
@@ -30,7 +45,9 @@ public class ColorButton extends Button {
         }
     }
 
-    public Color getColor() { return this.currentColor; }
+    public Color getColor() {
+        return this.currentColor;
+    }
 
     public void setColor(Color c) {
         this.currentColor = c;
@@ -40,9 +57,7 @@ public class ColorButton extends Button {
 
     @Override
     public void fire() {
-        colorNumber = colorNumber < Color.values().length - 1 ? colorNumber + 1 : 0;
-        currentColor = Color.values()[colorNumber];
-        this.setStyle("-fx-background-color: " + Color.getColorHex(currentColor));
+
     }
 
 
