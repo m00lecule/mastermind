@@ -17,7 +17,7 @@ public class Game {
     public int getScore() {
         if (!this.won)
             return 0;
-        return (int) (Math.pow(colors, fields) * (rows - attempts + 1) * Math.pow(1.2, (rows - attempts)) - /* TIME */0);
+        return (int) (Math.pow(colors, fields) * (rows - attempts + 1) * Math.pow(1.2, (rows - attempts)));
     }
 
     private int attempts;

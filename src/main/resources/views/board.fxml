@@ -8,7 +8,7 @@
 <Scene xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="to2.controller.BoardController">
     <AnchorPane fx:id="anchorPane" prefHeight="500.0" style="-fx-background-color: #8b4513">
       <children>
-         <BorderPane prefHeight="598.0" prefWidth="814.0">
+         <BorderPane prefHeight="750.0" prefWidth="850.0">
             <top>
                <HBox prefHeight="54.0" prefWidth="814.0" BorderPane.alignment="CENTER">
                   <children>
@@ -32,8 +32,8 @@
             <bottom>
                <HBox alignment="CENTER" prefHeight="90.0" prefWidth="814.0" spacing="100.0" BorderPane.alignment="CENTER">
                   <children>
-                     <Button fx:id="nextStep" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleNextStepAction" text="Save Guess" textAlignment="CENTER" minWidth="80"/>
-                     <Button fx:id="resetButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleResetAction" text="Reset" textAlignment="CENTER" minWidth="80"/>
+                     <Button fx:id="nextStep" alignment="CENTER" contentDisplay="CENTER" minWidth="80" mnemonicParsing="false" onAction="#handleNextStepAction" text="Save Guess" textAlignment="CENTER" />
+                     <Button fx:id="resetButton" alignment="CENTER" contentDisplay="CENTER" minWidth="80" mnemonicParsing="false" onAction="#handleResetAction" text="Reset" textAlignment="CENTER" />
                   </children>
                </HBox>
             </bottom>
