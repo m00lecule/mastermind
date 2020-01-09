@@ -1,33 +1,22 @@
 package to2.model;
 
 public class GameSettings {
-    private int columns;
     private int rows;
     private int colors;
 
     //TODO: persist default values
 
     public GameSettings(){
-        this.columns = 4;
         this.rows = 5;
         this.colors = 2;
         //(optional) TODO: add something like Boolean colorsCanRepeat and all the logic
     }
 
-    public GameSettings(int columns, int rows, int colors){
-        this.columns = columns;
+    public GameSettings(int rows, int colors){
         this.rows = rows;
-        this.colors = columns;
+        this.colors = colors;
     }
 
-
-    public int getColumns() {
-        return columns;
-    }
-
-    public void setColumns(int columns) {
-        this.columns = columns;
-    }
 
     public int getRows() {
         return rows;

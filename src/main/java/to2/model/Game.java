@@ -11,7 +11,7 @@ import java.lang.Math;
  */
 public class Game {
 
-    private int fields;
+    private int fields = 4;
     private List<Color> secretSequence = new LinkedList<>();
 
     public int getScore() {
@@ -35,8 +35,7 @@ public class Game {
 
     private boolean won = false;
 
-    public Game(int fields, int rows, int colors) {
-        this.fields = fields;
+    public Game(int rows, int colors) {
         this.rows = rows;
         this.colors = colors;
         this.reset();

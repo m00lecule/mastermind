@@ -8,6 +8,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.effect.GaussianBlur;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -28,10 +30,8 @@ import java.util.ListIterator;
 public class MenuController {
     private GameSettings settings;
     //TODO: move somewhere else idk
-    private GameSettings maxSettings = new GameSettings(4, 10, 7);
+    private GameSettings maxSettings = new GameSettings(12, 7);
 
-    @FXML
-    private Spinner<Integer> columnsSpinner;
     @FXML
     private Spinner<Integer> rowsSpinner;
     @FXML
@@ -42,12 +42,12 @@ public class MenuController {
     private Button quitButton;
     @FXML
     private Button loginButton;
+    @FXML
+    private AnchorPane menuAnchorPane;
 
     @FXML
     private void initialize() {
         settings = new GameSettings();
-        columnsSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, maxSettings.getColumns()));
-        columnsSpinner.getValueFactory().setValue(settings.getColumns());
         rowsSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, maxSettings.getRows()));
         rowsSpinner.getValueFactory().setValue(settings.getRows());
         colorsSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, maxSettings.getColors()));
@@ -56,7 +56,6 @@ public class MenuController {
 
     @FXML
     private void handleOkAction(ActionEvent event) {
-        settings.setColumns(columnsSpinner.getValue());
         settings.setRows(rowsSpinner.getValue());
         settings.setColors(colorsSpinner.getValue());
 
@@ -85,6 +84,19 @@ public class MenuController {
     @FXML
     private void handleLoginAction(ActionEvent event){
         //TODO: make the login window
+        showLoginPopup();
+    }
+
+
+    private void showLoginPopup() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION); //TODO: custom graphic (setGraphic)
+        alert.setContentText("TODO: ADD STUFF");
+        alert.setHeaderText("PEPSI MAX");
+        alert.setTitle("Log in");
+        //TODO: Michał skończ
+        menuAnchorPane.setEffect(new GaussianBlur());
+        alert.showAndWait();
+        menuAnchorPane.setEffect(null);
     }
 }
 

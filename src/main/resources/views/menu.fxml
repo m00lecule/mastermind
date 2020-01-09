@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="to2.controller.MenuController">
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.172-ea" fx:id="menuAnchorPane" xmlns:fx="http://javafx.com/fxml/1" fx:controller="to2.controller.MenuController">
     <BorderPane layoutX="318.0" layoutY="82.0" prefHeight="400.0" prefWidth="282.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <center>
             <GridPane prefHeight="104.0" prefWidth="282.0" BorderPane.alignment="CENTER">
@@ -19,13 +19,10 @@
                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 </columnConstraints>
                 <rowConstraints>
-                    <RowConstraints maxHeight="348.0" minHeight="10.0" prefHeight="41.0" vgrow="SOMETIMES" />
                     <RowConstraints maxHeight="347.0" minHeight="0.0" prefHeight="41.0" vgrow="SOMETIMES" />
                     <RowConstraints maxHeight="343.0" minHeight="0.0" prefHeight="70.0" vgrow="SOMETIMES" />
                 </rowConstraints>
-                <Spinner fx:id="columnsSpinner" editable="true" GridPane.columnIndex="1" />
                 <Label text="Rows" GridPane.rowIndex="1" />
-                <Label text="Columns" />
                 <Label text="Colors" GridPane.rowIndex="2" />
                 <Spinner fx:id="rowsSpinner" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                 <Spinner fx:id="colorsSpinner" GridPane.columnIndex="1" GridPane.rowIndex="2" />

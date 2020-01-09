@@ -33,7 +33,6 @@ public class BoardController {
     private int rowsNumber;
     private int colorsNumber;
 
-    //TODO: decide whether we want 4 fields or to make it dynamic
     private Game game;
 
     @FXML
@@ -99,7 +98,7 @@ public class BoardController {
     private void initialize() {
 
         Platform.runLater(() -> {
-            game = new Game(4, rowsNumber, colorsNumber);
+            game = new Game(rowsNumber, colorsNumber);
             for (int rows = 0; rows < rowsNumber; rows++) {
                 Row r = new Row(true);
                 rowsList.add(r);
