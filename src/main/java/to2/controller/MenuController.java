@@ -102,6 +102,15 @@ public class MenuController {
 
     @FXML
     private void handleRegisterAction(ActionEvent actionEvent) {
+        showRegisterPopup();
+    }
+
+    private void showRegisterPopup() {
+
+
+
+
+
     }
 
     private void showHighscores() {

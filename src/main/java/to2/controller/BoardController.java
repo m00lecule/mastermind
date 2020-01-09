@@ -66,7 +66,6 @@ public class BoardController {
         anchorPane.setEffect(new GaussianBlur());
         alert.showAndWait();
         backToMainMenu();
-
     }
 
 
@@ -87,7 +86,7 @@ public class BoardController {
                 currentRow = it.previous();
                 currentRow.setDisable(false);
             } else {
-                showPopup("Your score: 0", "You lost", "Not congratulations.");
+                showPopup("Your score: 0", "You lost\nWining sequence was: " + game.getSecretSequenceString(), "Not congratulations.");
             }
         }
     }
