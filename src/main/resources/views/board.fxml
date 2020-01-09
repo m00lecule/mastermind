@@ -30,11 +30,17 @@
                <VBox fx:id="vboxCentral" alignment="TOP_CENTER" maxWidth="643.0" prefHeight="438.0" prefWidth="643.0" BorderPane.alignment="CENTER" />
             </center>
             <bottom>
-               <HBox alignment="CENTER" prefHeight="90.0" prefWidth="814.0" spacing="100.0" BorderPane.alignment="CENTER">
-                  <children>
-                     <Button fx:id="nextStep" alignment="CENTER" contentDisplay="CENTER" minWidth="80" mnemonicParsing="false" onAction="#handleNextStepAction" text="Save Guess" textAlignment="CENTER" />
-                     <Button fx:id="resetButton" alignment="CENTER" contentDisplay="CENTER" minWidth="80" mnemonicParsing="false" onAction="#handleResetAction" text="Reset" textAlignment="CENTER" />
-                  </children>
+               <HBox alignment="CENTER" prefHeight="90.0" prefWidth="814.0" spacing="100.0"
+                     BorderPane.alignment="CENTER">
+                  <Button fx:id="nextStep" alignment="CENTER" contentDisplay="CENTER" minWidth="80"
+                          mnemonicParsing="false" onAction="#handleNextStepAction" text="Save Guess"
+                          textAlignment="CENTER"/>
+                  <Button fx:id="resetButton" alignment="CENTER" contentDisplay="CENTER" minWidth="80"
+                          mnemonicParsing="false" onAction="#handleResetAction" text="Reset" textAlignment="CENTER"/>
+                  <Button fx:id="abandonButton" alignment="CENTER" contentDisplay="CENTER" minWidth="80"
+                          mnemonicParsing="false" onAction="#handleAbandonAction" text="Abandon Game"
+                          textAlignment="CENTER"/>
+
                </HBox>
             </bottom>
          </BorderPane>

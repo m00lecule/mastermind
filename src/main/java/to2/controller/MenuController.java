@@ -68,8 +68,9 @@ public class MenuController {
             boardController = loader.getController();
             boardController.setSettings(settings);
             Stage current = (Stage) okButton.getScene().getWindow();
+            boardController.setMenu(current);
             gameStage.show();
-            current.close();
+            current.hide();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -83,13 +84,12 @@ public class MenuController {
 
     @FXML
     private void handleLoginAction(ActionEvent event){
-        //TODO: make the login window
         showLoginPopup();
     }
 
 
     private void showLoginPopup() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION); //TODO: custom graphic (setGraphic)
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setContentText("TODO: ADD STUFF");
         alert.setHeaderText("PEPSI MAX");
         alert.setTitle("Log in");

@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import to2.BoardElements.Color;
 import to2.BoardElements.Row;
 import to2.model.Game;
@@ -34,6 +35,11 @@ public class BoardController {
     private int colorsNumber;
 
     private Game game;
+    private Stage menu;
+
+    void setMenu(Stage menu) {
+        this.menu = menu;
+    }
 
     @FXML
     private AnchorPane anchorPane;
@@ -44,8 +50,6 @@ public class BoardController {
     @FXML
     private Button nextStep;
 
-//    @FXML
-//    private Button resetButton;
 
     private List<Row> rowsList = new LinkedList<>();
 
@@ -54,14 +58,17 @@ public class BoardController {
 
     private void showPopup(String content, String header, String title) {
         this.nextStep.setDisable(true);
-        Alert alert = new Alert(Alert.AlertType.INFORMATION); //TODO: custom graphic (setGraphic)
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        //TODO: custom graphic (setGraphic)
         alert.setContentText(content);
         alert.setHeaderText(header);
         alert.setTitle(title);
         anchorPane.setEffect(new GaussianBlur());
         alert.showAndWait();
-        anchorPane.setEffect(null);
+        backToMainMenu();
+
     }
+
 
     @FXML
     private void handleNextStepAction(ActionEvent event) {
@@ -111,6 +118,17 @@ public class BoardController {
         });
     }
 
+
+    @FXML
+    private void handleAbandonAction(ActionEvent event) {
+        backToMainMenu();
+    }
+
+    private void backToMainMenu(){
+        Stage current = (Stage) anchorPane.getScene().getWindow();
+        current.close();
+        menu.show();
+    }
 }
 
 
