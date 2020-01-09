@@ -20,11 +20,14 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Optional;
 
 /**
  * Game menu controller
  */
 public class MenuController {
+
+
     private GameSettings settings;
     //TODO: move somewhere else idk
     private GameSettings maxSettings = new GameSettings(12, 7);
@@ -37,10 +40,17 @@ public class MenuController {
     private Button okButton;
     @FXML
     private Button quitButton;
-    @FXML
-    private Button loginButton;
+   // @FXML
+   // private Button loginButton;
     @FXML
     private AnchorPane menuAnchorPane;
+    @FXML
+    private Label playerName;
+    @FXML
+    private Button logInButton;
+    @FXML
+    private Button registerButton;
+
 
     @FXML
     private void initialize() {
@@ -49,6 +59,7 @@ public class MenuController {
         rowsSpinner.getValueFactory().setValue(settings.getRows());
         colorsSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, maxSettings.getColors()));
         colorsSpinner.getValueFactory().setValue(settings.getColors());
+        playerName.setText("Not logged in");
     }
 
     @FXML
@@ -80,16 +91,20 @@ public class MenuController {
     }
 
     @FXML
-    private void handleLoginAction(ActionEvent event){
+    private void handleLoginAction(ActionEvent event) {
         showLoginPopup();
     }
 
     @FXML
-    private void handleScoresAction(ActionEvent event){
+    private void handleScoresAction(ActionEvent event) {
         showHighscores();
     }
 
-    private void showHighscores(){
+    @FXML
+    private void handleRegisterAction(ActionEvent actionEvent) {
+    }
+
+    private void showHighscores() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("High scores");
         alert.setGraphic(null);
@@ -109,15 +124,30 @@ public class MenuController {
     }
 
     private void showLoginPopup() {
-        //TODO: Replace with a view with auto-fill
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setContentText("TODO: ADD STUFF");
-        alert.setHeaderText("PEPSI MAX");
+        TextInputDialog alert = new TextInputDialog();
+        alert.setContentText("Please enter your name:");
+        alert.setHeaderText("Log in");
         alert.setTitle("Log in");
         menuAnchorPane.setEffect(new GaussianBlur());
-        alert.showAndWait();
+        Optional<String> result = alert.showAndWait();
+        if (result.isPresent()) {
+            //TODO BAZA
+            //if (baza.userExists(result.get())){
+            //logowanie
+            playerName.setText(result.get());
+            // } else {
+            Alert nouser = new Alert(Alert.AlertType.INFORMATION);
+            nouser.setTitle("Login error");
+            nouser.setGraphic(null);
+            nouser.setHeaderText("User with giver alias does not exists");
+            nouser.showAndWait();
+
+            // }
+        }
         menuAnchorPane.setEffect(null);
     }
+
+
 }
 
 
