@@ -92,4 +92,8 @@ public class Game {
 
         return matchedColors;
     }
+
+    public String getSecretSequenceString() {
+        return this.secretSequence.toString();
+    }
 }
