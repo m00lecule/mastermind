@@ -80,17 +80,17 @@
                         </Label>
                      </children>
                   </GridPane>
-                      <Button fx:id="okButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleOkAction" prefHeight="45.0" prefWidth="400.0" text="Start New Game" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                      <Button fx:id="okButton" alignment="CENTER" mnemonicParsing="false" onAction="#handleOkAction" prefHeight="45.0" prefWidth="400.0" text="Start New Game" style="-fx-background-radius: 100px;" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <font>
                         <Font size="26.0" />
                      </font>
                   </Button>
-                      <Button fx:id="quitButton" mnemonicParsing="false" onAction="#handleQuitAction" prefHeight="40.0" prefWidth="400.0" text="Quit" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                      <Button fx:id="quitButton" mnemonicParsing="false" onAction="#handleQuitAction" prefHeight="40.0" prefWidth="400.0" text="Quit" style="-fx-background-radius: 100px;" GridPane.columnIndex="1" GridPane.rowIndex="5">
                      <font>
                         <Font size="22.0" />
                      </font>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#handleScoresAction" prefHeight="40.0" prefWidth="400.0" text="Highscores" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                  <Button mnemonicParsing="false" onAction="#handleScoresAction" prefHeight="40.0" prefWidth="400.0" text="Highscores" style="-fx-background-radius: 100px;" GridPane.columnIndex="1" GridPane.rowIndex="4">
                      <font>
                         <Font size="22.0" />
                      </font>
@@ -109,7 +109,6 @@
               </rowConstraints>
                <children>
                   <Button fx:id="logInButton" mnemonicParsing="false" onAction="#handleLoginAction" text="Log In" />
-                  <Button fx:id="registerButton" mnemonicParsing="false" onAction="#handleRegisterAction" text="Register" GridPane.columnIndex="1" />
                </children>
             </GridPane>
             </GridPane>
