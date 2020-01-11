@@ -1,6 +1,11 @@
 package to2.mail;
 
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import sun.awt.image.ImageWatched;
+import to2.model.Config;
+import to2.persistance.Postgres;
+import to2.persistance.User;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -14,7 +19,7 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-class JavaEmail {
+class JavaMail {
 
     Properties emailProperties;
     Session mailSession;
@@ -23,7 +28,7 @@ class JavaEmail {
     public static void main(String args[]) throws AddressException,
             MessagingException {
 
-        JavaEmail javaEmail = new JavaEmail();
+        JavaMail javaEmail = new JavaMail();
         javaEmail.setMailServerProperties();
         List<String> s = new LinkedList<>();
         s.add("michaldygaz@gmail.com");
@@ -48,7 +53,7 @@ class JavaEmail {
         mailSession = Session.getDefaultInstance(emailProperties, null);
         emailMessage = new MimeMessage(mailSession);
 
-        for(String emailAddress : toEmails){
+        for (String emailAddress : toEmails) {
             emailMessage.addRecipient(Message.RecipientType.TO, new InternetAddress(emailAddress));
         }
 
@@ -61,8 +66,8 @@ class JavaEmail {
     public void sendEmail() throws AddressException, MessagingException {
 
         String emailHost = "smtp.gmail.com";
-        String fromUser = "maestermund";//just the id alone without @gmail.com
-        String fromUserEmailPassword = "Kulfon1!";
+        String fromUser = Config.getEmailLogin();
+        String fromUserEmailPassword = Config.getEmailPassword();
 
         Transport transport = mailSession.getTransport("smtp");
 
@@ -70,5 +75,4 @@ class JavaEmail {
         transport.sendMessage(emailMessage, emailMessage.getAllRecipients());
         transport.close();
     }
-
 }
