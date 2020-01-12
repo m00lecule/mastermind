@@ -52,13 +52,13 @@ public class LoginController {
     private void handleLoginAction(ActionEvent event) {
         System.out.println(loginTextField.getText());
 
-        if(loginEmailTextField.getText().isEmpty()){
-            this.showWarning("Fill email");
+        if(loginEmailTextField.getText().isEmpty() && loginTextField.getText().isEmpty()){
+            this.showWarning("Fill email or nickname");
             return;
         }
 
-        if(loginTextField.getText().isEmpty()){
-            this.showWarning("Fill login");
+        if(!(loginEmailTextField.getText().isEmpty() || loginTextField.getText().isEmpty())){
+            this.showWarning("Specify only email or nickname");
             return;
         }
 
@@ -68,9 +68,17 @@ public class LoginController {
         Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
 
-        Query query = session.createQuery("from User where email = :email and nickname = :nickname");
-        query.setParameter("email", loginEmailTextField.getText());
-        query.setParameter("nickname", loginTextField.getText());
+        Query query = null;
+
+        if(!loginEmailTextField.getText().isEmpty()){
+            query = session.createQuery("from User where email = :email");
+            query.setParameter("email", loginEmailTextField.getText());
+        }
+
+        if(!loginTextField.getText().isEmpty()){
+            query = session.createQuery("from User where nickname = :nickname");
+            query.setParameter("nickname", loginTextField.getText());
+        }
 
         try {
             User.LOGGED_USER = (User) query.getSingleResult();
@@ -92,12 +100,12 @@ public class LoginController {
     @FXML
     private void handleRegisterAction(ActionEvent event) {
 
-        if(registrationEmailTextField.getText().isEmpty()){
+        if(registrationCheckBox.isSelected() && registrationEmailTextField.getText().isEmpty()){
             this.showWarning("fill email");
             return;
         }
 
-        if(registrationLoginTextField.getText().isEmpty()){
+        if(  registrationLoginTextField.getText().isEmpty()){
             this.showWarning("fill login");
         }
 
@@ -111,18 +119,26 @@ public class LoginController {
 
         try {
             session.save(user);
+
+            tx.commit();
+
+
         }catch (ConstraintViolationException e){
             exception = true;
-            e.printStackTrace();
-            System.out.println(e.getConstraintName());
+
+            if(e.getConstraintName().contains("nickname")) {
+                this.showWarning("Thin nickname is taken!");
+            } else if (e.getConstraintName().contains("email")) {
+                this.showWarning("User associated this email already exists!");
+            }
+
         }
 
-
-        tx.commit();
         session.close();
 
-        if(exception)
+        if(exception){
             return;
+        }
 
         User.LOGGED_USER = user;
 
