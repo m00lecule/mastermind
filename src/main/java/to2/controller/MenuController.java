@@ -1,26 +1,30 @@
 package to2.controller;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.Window;
-import to2.BoardElements.Color;
-import to2.BoardElements.Row;
+import javafx.util.Callback;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 import to2.Mastermind;
-import to2.model.Game;
 import to2.model.GameSettings;
+import to2.persistance.GameScore;
+import to2.persistance.Postgres;
+import to2.persistance.User;
 
 import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.ListIterator;
-import java.util.Optional;
 
 /**
  * Game menu controller
@@ -91,7 +95,7 @@ public class MenuController {
     }
 
     @FXML
-    private void handleLoginAction(ActionEvent event) {
+    private void handleLoginAction(ActionEvent event) throws IOException {
         showLoginPopup();
     }
 
@@ -107,10 +111,6 @@ public class MenuController {
 
     private void showRegisterPopup() {
 
-
-
-
-
     }
 
     private void showHighscores() {
@@ -119,12 +119,38 @@ public class MenuController {
         alert.setGraphic(null);
         alert.setHeaderText("High Scores:");
         DialogPane dp = alert.getDialogPane();
-        TableView<String> table = new TableView<>();
+        TableView<GameScore> table = new TableView<>();
         TableColumn nickCol = new TableColumn("Nickname");
-        TableColumn mailCol = new TableColumn("email");
         TableColumn scoreCol = new TableColumn("Score");
-        table.getColumns().addAll(nickCol, mailCol, scoreCol);
-        //TODO: populate table with DB content
+
+        scoreCol.setCellValueFactory(new PropertyValueFactory<>("score"));
+
+        nickCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<GameScore,String>, ObservableValue<String>>(){
+            @Override
+            public ObservableValue<String> call(TableColumn.CellDataFeatures<GameScore, String> param) {
+                User u;
+                if((u = param.getValue().getUser()) != null){
+                    return new SimpleStringProperty(u.getNickname());
+                }else{
+                    return new SimpleStringProperty("Unknown");
+                }
+            }
+        });
+
+        table.getColumns().addAll(nickCol, scoreCol);
+        SessionFactory sessionFactory = Postgres.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        Transaction tx = session.beginTransaction();
+
+        String hql = "FROM GameScore gs ORDER BY gs.score DESC";
+        Query query = session.createQuery(hql);
+        query.setFirstResult(0);
+        query.setMaxResults(100);
+
+        table.setItems(FXCollections.observableArrayList(query.list()));
+
+        tx.commit();
+        session.close();
 
         dp.setContent(table);
         menuAnchorPane.setEffect(new GaussianBlur());
@@ -132,28 +158,45 @@ public class MenuController {
         menuAnchorPane.setEffect(null);
     }
 
-    private void showLoginPopup() {
-        TextInputDialog alert = new TextInputDialog();
-        alert.setContentText("Please enter your name:");
-        alert.setHeaderText("Log in");
-        alert.setTitle("Log in");
-        menuAnchorPane.setEffect(new GaussianBlur());
-        Optional<String> result = alert.showAndWait();
-        if (result.isPresent()) {
-            //TODO BAZA
-            //if (baza.userExists(result.get())){
-            //logowanie
-            playerName.setText(result.get());
-            // } else {
-            Alert nouser = new Alert(Alert.AlertType.INFORMATION);
-            nouser.setTitle("Login error");
-            nouser.setGraphic(null);
-            nouser.setHeaderText("User with giver alias does not exists");
-            nouser.showAndWait();
+    private void showLoginPopup() throws IOException {
 
-            // }
+        Stage stage = new Stage();
+
+        FXMLLoader loader = new FXMLLoader();
+
+        loader.setLocation(Mastermind.class.getResource("/views/login.fxml"));
+
+        try {
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(new Scene(loader.load()));
+            menuAnchorPane.setEffect(new GaussianBlur());
+            stage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
         menuAnchorPane.setEffect(null);
+
+        if(User.LOGGED_USER !=null){
+            playerName.setText(User.LOGGED_USER.getNickname());
+        }
+//        TextInputDialog alert = new TextInputDialog();
+//        alert.setContentText("Please enter your name:");
+//        alert.setHeaderText("Log in");
+//        alert.setTitle("Log in");
+//
+//        Optional<String> result = alert.showAndWait();
+//        if (result.isPresent()) {
+//            //TODO BAZA
+//            //if (baza.userExists(result.get())){
+//            //logowanie
+//            playerName.setText(result.get());
+//            // } else {
+
+//
+//            // }
+//        }
+//        menuAnchorPane.setEffect(null);
     }
 
 

@@ -4,21 +4,21 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "users")
+@Table(name = "users", uniqueConstraints={@UniqueConstraint(columnNames={"nickname", "email"})})
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "user_id")
     private int id;
 
     private String email;
     private String nickname;
+    @Column(name = "send_emails", nullable = false)
     private boolean sendNotification = true;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<GameScore> games;
 
-    @Column(name = "send_notification", nullable = false)
     public boolean isSendNotification() {
         return sendNotification;
     }
@@ -27,7 +27,7 @@ public class User {
         this.sendNotification = sendNotification;
     }
 
-    @Column(name = "nickname", nullable = false, unique = true)
+    @Column(name = "nickname", unique = true, nullable = false)
     public String getNickname() {
         return nickname;
     }
@@ -36,8 +36,7 @@ public class User {
         this.nickname = nickname;
     }
 
-
-    @Column(name = "email", nullable = false, unique = true)
+    @Column(name = "email", unique = true, nullable = false)
     public String getEmail() {
         return email;
     }
@@ -62,5 +61,8 @@ public class User {
         this.email = email;
         this.sendNotification = sendNotification;
     }
+
+    @Transient
+    static public User LOGGED_USER = null;
 }
 

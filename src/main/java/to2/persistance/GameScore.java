@@ -8,10 +8,11 @@ import to2.persistance.User;
 public class GameScore {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name="game_id")
     private int id;
 
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
     private int score;

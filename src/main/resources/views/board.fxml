@@ -43,9 +43,9 @@
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
-                        <Button fx:id="resetButton" alignment="CENTER" contentDisplay="RIGHT" minWidth="80" mnemonicParsing="false" onAction="#handleResetAction" text="Reset" textAlignment="RIGHT" GridPane.columnIndex="4" />
-                        <Button fx:id="abandonButton" alignment="CENTER" contentDisplay="CENTER" minWidth="80" mnemonicParsing="false" onAction="#handleAbandonAction" text="Abandon Game" textAlignment="CENTER" />
-                        <Button fx:id="nextStep" alignment="CENTER" contentDisplay="CENTER" minWidth="80" mnemonicParsing="false" onAction="#handleNextStepAction" prefWidth="400.0" text="Save Guess" textAlignment="CENTER" GridPane.columnIndex="2">
+                        <Button fx:id="resetButton" alignment="CENTER" contentDisplay="RIGHT" minWidth="80" mnemonicParsing="false" onAction="#handleResetAction" style="-fx-background-radius: 100px;" text="Reset" textAlignment="RIGHT" GridPane.columnIndex="4" />
+                        <Button fx:id="abandonButton" alignment="CENTER" contentDisplay="CENTER" minWidth="80" mnemonicParsing="false" onAction="#handleAbandonAction" style="-fx-background-radius: 100px;" text="Abandon Game" textAlignment="CENTER" />
+                        <Button fx:id="nextStep" alignment="CENTER" contentDisplay="CENTER" minWidth="80" mnemonicParsing="false" onAction="#handleNextStepAction" prefHeight="37.0" prefWidth="397.0" style="-fx-background-radius: 100px;" text="Save Guess" textAlignment="CENTER" GridPane.columnIndex="2">
                            <font>
                               <Font size="24.0" />
                            </font>

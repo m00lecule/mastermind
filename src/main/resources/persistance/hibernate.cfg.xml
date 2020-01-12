@@ -11,7 +11,7 @@
         <property name="format_sql">true</property>
         <property name="use_sql_comments">true</property>
         <!-- Drop and re-create the database schema on startup -->
-        <property name="hbm2ddl.auto">update</property>
+        <property name="hbm2ddl.auto">validate</property>
         <!-- MAPPINGS -->
         <mapping class="to2.persistance.User"/>
         <mapping class="to2.persistance.GameScore"/>

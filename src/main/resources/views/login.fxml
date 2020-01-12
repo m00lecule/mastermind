@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<TabPane cache="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="242.0" style="-fx-background-color: #8b4513;" tabClosingPolicy="UNAVAILABLE" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1">
+<TabPane fx:id="tabPane" cache="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="242.0" style="-fx-background-color: #8b4513;" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="to2.controller.LoginController">
   <tabs>
     <Tab text="Login">
          <content>
@@ -17,7 +17,7 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="52.0" prefWidth="242.0">
                      <children>
-                        <TextField alignment="TOP_LEFT" promptText="login"  HBox.hgrow="ALWAYS">
+                        <TextField fx:id="loginTextField" alignment="TOP_LEFT" promptText="login"  HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets left="20.0" right="20.0" top="60.0" />
                            </HBox.margin>
@@ -26,14 +26,14 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="52.0" prefWidth="242.0">
                      <children>
-                        <TextField promptText="email" HBox.hgrow="ALWAYS">
+                        <TextField fx:id="loginEmailTextField" promptText="email" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets left="20.0" right="20.0" />
                            </HBox.margin>
                         </TextField>
                      </children>
                   </HBox>
-                  <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="118.0" style="-fx-background-radius: 100px;" text="Login">
+                  <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="118.0" style="-fx-background-radius: 100px;" text="Login" onAction="#handleLoginAction">
                      <VBox.margin>
                         <Insets top="105.0" />
                      </VBox.margin>
@@ -47,7 +47,7 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="52.0" prefWidth="242.0">
                      <children>
-                        <TextField alignment="TOP_LEFT" promptText="login" HBox.hgrow="ALWAYS">
+                        <TextField fx:id="registrationLoginTextField" alignment="TOP_LEFT" promptText="login" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets left="20.0" right="20.0" />
                            </HBox.margin>
@@ -62,15 +62,15 @@
                   </HBox>
                   <HBox alignment="CENTER" prefHeight="52.0" prefWidth="242.0">
                      <children>
-                        <TextField promptText="email" HBox.hgrow="ALWAYS">
+                        <TextField fx:id="registrationEmailTextField" promptText="email" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets left="20.0" right="20.0" />
                            </HBox.margin>
                         </TextField>
                      </children>
                   </HBox>
-                  <CheckBox mnemonicParsing="false" text="allow notifications" textAlignment="CENTER" textFill="#c7b7b7" />
-                  <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="118.0" style="-fx-background-radius: 100px;" text="Register">
+                  <CheckBox fx:id="registrationCheckBox" mnemonicParsing="false" text="allow notifications" textAlignment="CENTER" textFill="#c7b7b7" />
+                  <Button mnemonicParsing="false" prefHeight="32.0" prefWidth="118.0" style="-fx-background-radius: 100px;" text="Register" onAction="#handleRegisterAction">
                      <VBox.margin>
                         <Insets top="80.0" />
                      </VBox.margin>

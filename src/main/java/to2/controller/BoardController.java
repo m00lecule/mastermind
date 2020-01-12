@@ -1,6 +1,7 @@
 package to2.controller;
 
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -9,10 +10,18 @@ import javafx.scene.effect.GaussianBlur;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.query.Query;
 import to2.BoardElements.Color;
 import to2.BoardElements.Row;
+import to2.mail.JavaMail;
 import to2.model.Game;
 import to2.model.GameSettings;
+import to2.persistance.GameScore;
+import to2.persistance.Postgres;
+import to2.persistance.User;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -69,6 +78,47 @@ public class BoardController {
     }
 
 
+    private void notifyIfBestScore(GameScore gs){
+        SessionFactory sessionFactory = Postgres.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        Transaction tx = session.beginTransaction();
+
+        String hql = "FROM GameScore gs WHERE gs.score > :score";
+        Query query = session.createQuery(hql);
+        query.setParameter("score", gs.getScore());
+
+        if(query.list().isEmpty()){
+            hql = "FROM User u WHERE u.sendNotification IS true";
+            query = session.createQuery(hql);
+
+            try {
+                JavaMail.notifyUsers((User) query.list());
+            }catch (Exception e ){
+                e.printStackTrace();
+            }
+        }
+
+        session.save(gs);
+
+        tx.commit();
+        session.close();
+    }
+
+    private void persistScore(int score){
+        SessionFactory sessionFactory = Postgres.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        Transaction tx = session.beginTransaction();
+
+        GameScore gs = new GameScore();
+        gs.setScore(score);
+        gs.setUser(User.LOGGED_USER);
+
+        session.save(gs);
+
+        tx.commit();
+        session.close();
+    }
+
     @FXML
     private void handleNextStepAction(ActionEvent event) {
         currentRow.setDisable(true);
@@ -81,6 +131,9 @@ public class BoardController {
 
         if (game.wonGame()) {
             showPopup("Your score: " + game.getScore(), "You won!", "Congratulations!");
+
+            this.persistScore(game.getScore());
+
         } else {
             if (it.hasPrevious()) {
                 currentRow = it.previous();

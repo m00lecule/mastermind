@@ -1,15 +1,9 @@
 package to2.mail;
 
-import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
-import sun.awt.image.ImageWatched;
+
 import to2.model.Config;
-import to2.persistance.Postgres;
 import to2.persistance.User;
 
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Properties;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -19,21 +13,30 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-class JavaMail {
+public class JavaMail {
 
     Properties emailProperties;
     Session mailSession;
     MimeMessage emailMessage;
 
-    public static void main(String args[]) throws AddressException,
-            MessagingException {
+//    public static void main(String args[]) throws AddressException,
+//            MessagingException {
+//
+//        JavaMail javaEmail = new JavaMail();
+//
+//        List<String> s = new LinkedList<>();
+//        s.add("michaldygaz@gmail.com");
+//        javaEmail.createEmailMessage(s);
+//        javaEmail.sendEmail();
+//    }
 
+    static public void notifyUsers(User... list) throws MessagingException {
         JavaMail javaEmail = new JavaMail();
         javaEmail.setMailServerProperties();
-        List<String> s = new LinkedList<>();
-        s.add("michaldygaz@gmail.com");
-        javaEmail.createEmailMessage(s);
-        javaEmail.sendEmail();
+        for(User u : list){
+            javaEmail.createEmailMessage(u.getEmail());
+            javaEmail.sendEmail();
+        }
     }
 
     public void setMailServerProperties() {
@@ -46,7 +49,7 @@ class JavaMail {
         emailProperties.put("mail.smtp.starttls.enable", "true");
     }
 
-    public void createEmailMessage(List<String> toEmails) throws AddressException, MessagingException {
+    public void createEmailMessage(String... toEmails) throws AddressException, MessagingException {
         String emailSubject = "Java Email";
         String emailBody = "This is an email sent by JavaMail api.";
 
