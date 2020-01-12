@@ -4,6 +4,7 @@ package to2.mail;
 import to2.model.Config;
 import to2.persistance.User;
 
+import java.util.List;
 import java.util.Properties;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -30,10 +31,11 @@ public class JavaMail {
 //        javaEmail.sendEmail();
 //    }
 
-    static public void notifyUsers(User... list) throws MessagingException {
+    static public void notifyUsers(List list) throws MessagingException {
         JavaMail javaEmail = new JavaMail();
         javaEmail.setMailServerProperties();
-        for(User u : list){
+        for(Object o : list){
+            User u = (User) o;
             javaEmail.createEmailMessage(u.getEmail());
             javaEmail.sendEmail();
         }
@@ -50,8 +52,8 @@ public class JavaMail {
     }
 
     public void createEmailMessage(String... toEmails) throws AddressException, MessagingException {
-        String emailSubject = "Java Email";
-        String emailBody = "This is an email sent by JavaMail api.";
+        String emailSubject = "Congratulations!";
+        String emailBody = "You have beaten everyone in the Mastermind game.";
 
         mailSession = Session.getDefaultInstance(emailProperties, null);
         emailMessage = new MimeMessage(mailSession);

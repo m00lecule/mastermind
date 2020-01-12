@@ -62,6 +62,10 @@ public class User {
         this.sendNotification = sendNotification;
     }
 
+    public int getUserId() {
+        return id;
+    }
+
     @Transient
     static public User LOGGED_USER = null;
 }

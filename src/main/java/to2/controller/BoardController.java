@@ -88,11 +88,12 @@ public class BoardController {
         query.setParameter("score", gs.getScore());
 
         if(query.list().isEmpty()){
-            hql = "FROM User u WHERE u.sendNotification IS true";
+            hql = "FROM User u WHERE u.sendNotification IS true AND u.id = :userId";
             query = session.createQuery(hql);
+            query.setParameter("userId", gs.getUser().getUserId());
 
             try {
-                JavaMail.notifyUsers((User) query.list());
+                JavaMail.notifyUsers(query.list());
             }catch (Exception e ){
                 e.printStackTrace();
             }
@@ -130,7 +131,12 @@ public class BoardController {
         currentRow.updateCircles(result);
 
         if (game.wonGame()) {
+            GameScore gs = new GameScore();
+            gs.setScore(game.getScore());
+            gs.setUser(User.LOGGED_USER);
+            notifyIfBestScore(gs);
             showPopup("Your score: " + game.getScore(), "You won!", "Congratulations!");
+
 
             this.persistScore(game.getScore());
 
