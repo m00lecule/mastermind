@@ -102,7 +102,7 @@ public class LoginController {
     @FXML
     private void handleRegisterAction(ActionEvent event) {
 
-        if(registrationCheckBox.isSelected() && registrationEmailTextField.getText().isEmpty()){
+        if (registrationCheckBox.isSelected() && registrationEmailTextField.getText().isEmpty()) {
             this.showWarning("Email address is obligatory to allow notifications");
             return;
         }
@@ -116,10 +116,10 @@ public class LoginController {
 
         Pattern pattern = Pattern.compile(regex);
 
-         if(!(registrationEmailTextField.getText().isEmpty() || pattern.matcher(registrationEmailTextField.getText()).matches())){
-             this.showWarning("Wrong email format!");
-             return;
-         }
+        if (!(registrationEmailTextField.getText().isEmpty() || pattern.matcher(registrationEmailTextField.getText()).matches())) {
+            this.showWarning("Wrong email format!");
+            return;
+        }
 
         SessionFactory sessionFactory = Postgres.getSessionFactory();
         Session session = sessionFactory.openSession();

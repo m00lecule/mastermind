@@ -20,21 +20,10 @@ public class JavaMail {
     Session mailSession;
     MimeMessage emailMessage;
 
-//    public static void main(String args[]) throws AddressException,
-//            MessagingException {
-//
-//        JavaMail javaEmail = new JavaMail();
-//
-//        List<String> s = new LinkedList<>();
-//        s.add("michaldygaz@gmail.com");
-//        javaEmail.createEmailMessage(s);
-//        javaEmail.sendEmail();
-//    }
-
     static public void notifyUsers(List list) throws MessagingException {
         JavaMail javaEmail = new JavaMail();
         javaEmail.setMailServerProperties();
-        for(Object o : list){
+        for (Object o : list) {
             User u = (User) o;
             javaEmail.createEmailMessage(u.getEmail());
             javaEmail.sendEmail();
@@ -63,9 +52,7 @@ public class JavaMail {
         }
 
         emailMessage.setSubject(emailSubject);
-        emailMessage.setContent(emailBody, "text/html");//for a html email
-        //emailMessage.setText(emailBody);// for a text email
-
+        emailMessage.setContent(emailBody, "text/html");
     }
 
     public void sendEmail() throws AddressException, MessagingException {

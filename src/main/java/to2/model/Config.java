@@ -23,12 +23,20 @@ public class Config {
         }
     }
 
-    public static String getEmailLogin(){
+    public static String getEmailLogin() {
         return (String) properties.get("login");
     }
 
-    public static String getEmailPassword(){
+    public static String getEmailPassword() {
         return (String) properties.get("password");
+    }
+
+    public static Integer getRows() {
+        return Integer.valueOf(properties.getProperty("rows"));
+    }
+
+    public static Integer getColorNumber() {
+        return Integer.valueOf(properties.getProperty("color_no"));
     }
 
     public static void main(String args[]) throws AddressException,

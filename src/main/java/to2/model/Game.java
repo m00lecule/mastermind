@@ -26,7 +26,6 @@ public class Game {
 
     private int rows;
 
-    //TODO: make this variable matter maybe
     private int colors;
 
     public boolean wonGame() {

@@ -182,7 +182,7 @@ public class MenuController {
 
             String s = null;
 
-            if((s = User.LOGGED_USER.getNickname()) != null || (s = User.LOGGED_USER.getEmail()) != null){
+            if ((s = User.LOGGED_USER.getNickname()) != null || (s = User.LOGGED_USER.getEmail()) != null) {
                 playerName.setText(s);
             }
         }

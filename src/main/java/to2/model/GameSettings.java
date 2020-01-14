@@ -4,19 +4,15 @@ public class GameSettings {
     private int rows;
     private int colors;
 
-    //TODO: persist default values
-
     public GameSettings(){
-        this.rows = 8;
-        this.colors = 5;
-        //(optional) TODO: add something like Boolean colorsCanRepeat and all the logic
+        this.rows = Config.getRows();
+        this.colors = Config.getColorNumber();
     }
 
     public GameSettings(int rows, int colors){
         this.rows = rows;
         this.colors = colors;
     }
-
 
     public int getRows() {
         return rows;

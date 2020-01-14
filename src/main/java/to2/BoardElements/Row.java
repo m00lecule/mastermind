@@ -6,6 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Circle;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -35,7 +36,7 @@ public class Row extends BorderPane {
         this.setDisable(setDisabled);
     }
 
-    private Node initializeCircle(){
+    private Node initializeCircle() {
         Circle c = new Circle();
         c.setRadius(cricleRadix);
         c.setStyle("-fx-fill: #000000");
@@ -43,20 +44,20 @@ public class Row extends BorderPane {
         return c;
     }
 
-    public void updateCircles(List<Color> results){
+    public void updateCircles(List<Color> results) {
         Iterator<Color> resultIterator = results.iterator();
         Iterator<Circle> circleIterator = circleList.iterator();
 
-        while(resultIterator.hasNext()){
+        while (resultIterator.hasNext()) {
             circleIterator.next().setStyle("-fx-fill: " + Color.getColorHex(resultIterator.next()));
         }
     }
 
-    public List<Color> getGuesses(){
+    public List<Color> getGuesses() {
         return buttons.stream().map(ColorButton::getColor).collect(Collectors.toList());
     }
 
-    private Node initializeButton(){
+    private Node initializeButton() {
         ColorButton bt = new ColorButton(colors);
         bt.setPrefHeight(bigButtonSize);
         bt.setPrefWidth(bigButtonSize);
@@ -64,19 +65,19 @@ public class Row extends BorderPane {
         return bt;
     }
 
-    private Node initializeCentralGridPane(){
+    private Node initializeCentralGridPane() {
         GridPane gp = new GridPane();
 
-        for(int i = 0 ; i < 4 ; ++i)
-            gp.add(this.initializeButton(),i,0);
+        for (int i = 0; i < 4; ++i)
+            gp.add(this.initializeButton(), i, 0);
 
         GridPane ingp = new GridPane();
         ingp.setHgap(10);
         ingp.setVgap(6);
 
-        for (int i =0; i<2; i++)
-            for (int j =0; j<2; j++)
-                ingp.add(this.initializeCircle(),i,j);
+        for (int i = 0; i < 2; i++)
+            for (int j = 0; j < 2; j++)
+                ingp.add(this.initializeCircle(), i, j);
 
         gp.add(ingp, 4, 0);
 
