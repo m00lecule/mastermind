@@ -18,6 +18,9 @@ import to2.persistance.User;
 
 import java.util.regex.Pattern;
 
+/**
+ * Mastermind login controller - handles all login/registration action.
+ */
 public class LoginController {
 
     @FXML

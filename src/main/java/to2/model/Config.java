@@ -12,6 +12,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
 
+/**
+ * Game static properties reader
+ */
 public class Config {
     static private Properties properties = new Properties();
 

@@ -3,6 +3,9 @@ package to2.persistance;
 import javax.persistence.*;
 import java.util.List;
 
+/**
+ * DAO for persisting all users
+ */
 @Entity
 @Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = {"nickname", "email"})})
 public class User {

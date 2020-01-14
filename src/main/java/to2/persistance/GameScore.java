@@ -3,6 +3,10 @@ package to2.persistance;
 import javax.persistence.*;
 import to2.persistance.User;
 
+
+/**
+ * DAO for persisting GameScore
+ */
 @Entity
 @Table(name="gamescores")
 public class GameScore {

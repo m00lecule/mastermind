@@ -14,6 +14,10 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+
+/**
+ * Class responsible for sending emails
+ */
 public class JavaMail {
 
     Properties emailProperties;
