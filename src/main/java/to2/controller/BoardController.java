@@ -68,7 +68,6 @@ public class BoardController {
     private void showPopup(String content, String header, String title) {
         this.nextStep.setDisable(true);
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        //TODO: custom graphic (setGraphic)
         alert.setContentText(content);
         alert.setHeaderText(header);
         alert.setTitle(title);
@@ -78,7 +77,7 @@ public class BoardController {
     }
 
 
-    private void notifyIfBestScoreAndPersist(int score) {
+    private boolean notifyIfBestScoreAndPersist(int score) {
         SessionFactory sessionFactory = Postgres.getSessionFactory();
         Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
@@ -87,19 +86,24 @@ public class BoardController {
         gs.setScore(score);
         gs.setUser(User.LOGGED_USER);
 
+        boolean cond = false;
+
         String hql = "FROM GameScore gs WHERE gs.score > :score";
         Query query = session.createQuery(hql);
-        query.setParameter("score", gs.getScore());
+        query.setParameter("score", score);
 
-        if (User.LOGGED_USER != null && query.list().isEmpty()) {
-            hql = "FROM User u WHERE u.sendNotification IS true AND u.id = :userId";
-            query = session.createQuery(hql);
-            query.setParameter("userId", gs.getUser().getUserId());
+        if (query.list().isEmpty()) {
+            cond = true;
+            if (User.LOGGED_USER != null) {
+                hql = "FROM User u WHERE u.sendNotification IS true AND u.id = :userId";
+                query = session.createQuery(hql);
+                query.setParameter("userId", gs.getUser().getUserId());
 
-            try {
-                JavaMail.notifyUsers(query.list());
-            } catch (Exception e) {
-                e.printStackTrace();
+                try {
+                    JavaMail.notifyUsers(query.list());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
 
@@ -107,6 +111,8 @@ public class BoardController {
 
         tx.commit();
         session.close();
+
+        return cond;
     }
 
 
@@ -121,15 +127,16 @@ public class BoardController {
         currentRow.updateCircles(result);
 
         if (game.wonGame()) {
-            notifyIfBestScoreAndPersist(game.getScore());
-            showPopup("Your score: " + game.getScore(), "You won!", "Congratulations!");
-
+            if (notifyIfBestScoreAndPersist(game.getScore()))
+                showPopup("Your score: " + game.getScore() + "\n You are now at the top of leaderboard!", "You won!", "Congratulations!");
+            else
+                showPopup("Your score: " + game.getScore(), "You won!", "Congratulations!");
         } else {
             if (it.hasPrevious()) {
                 currentRow = it.previous();
                 currentRow.setDisable(false);
             } else {
-                showPopup("Your score: 0", "You lost\nWining sequence was: " + game.getSecretSequenceString(), "Not congratulations.");
+                showPopup("Your score: 0", "You lost\nWinning sequence was: " + game.getSecretSequenceString(), "Not congratulations.");
             }
         }
     }

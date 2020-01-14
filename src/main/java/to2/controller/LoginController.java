@@ -137,16 +137,13 @@ public class LoginController {
 
             tx.commit();
 
-
         } catch (ConstraintViolationException e) {
             exception = true;
-
             if (e.getConstraintName().contains("nickname")) {
                 this.showWarning("This nickname is taken!");
             } else if (e.getConstraintName().contains("email")) {
                 this.showWarning("User associated this email already exists!");
             }
-
         }
 
         session.close();

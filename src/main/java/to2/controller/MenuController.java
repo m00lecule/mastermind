@@ -44,8 +44,6 @@ public class MenuController {
     private Button okButton;
     @FXML
     private Button quitButton;
-    // @FXML
-    // private Button loginButton;
     @FXML
     private AnchorPane menuAnchorPane;
     @FXML

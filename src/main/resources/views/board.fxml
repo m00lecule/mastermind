@@ -27,7 +27,7 @@
                 <VBox alignment="BOTTOM_CENTER" prefHeight="498.0" prefWidth="10.0" BorderPane.alignment="CENTER" />
             </right>
             <center>
-               <VBox fx:id="vboxCentral" alignment="TOP_CENTER" maxWidth="643.0" prefHeight="438.0" prefWidth="643.0" BorderPane.alignment="CENTER" />
+               <VBox fx:id="vboxCentral" alignment="CENTER" maxWidth="643.0" prefHeight="438.0" prefWidth="643.0" BorderPane.alignment="CENTER" />
             </center>
             <bottom>
                <HBox alignment="CENTER" prefHeight="90.0" prefWidth="814.0" spacing="100.0" BorderPane.alignment="CENTER">

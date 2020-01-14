@@ -7,8 +7,8 @@ public class GameSettings {
     //TODO: persist default values
 
     public GameSettings(){
-        this.rows = 5;
-        this.colors = 2;
+        this.rows = 8;
+        this.colors = 5;
         //(optional) TODO: add something like Boolean colorsCanRepeat and all the logic
     }
 
