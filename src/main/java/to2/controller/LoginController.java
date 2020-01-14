@@ -16,6 +16,8 @@ import org.hibernate.query.Query;
 import to2.persistance.Postgres;
 import to2.persistance.User;
 
+import java.util.regex.Pattern;
+
 public class LoginController {
 
     @FXML
@@ -109,6 +111,15 @@ public class LoginController {
             this.showWarning("fill email or login");
             return;
         }
+
+        String regex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
+
+        Pattern pattern = Pattern.compile(regex);
+
+         if(!(registrationEmailTextField.getText().isEmpty() || pattern.matcher(registrationEmailTextField.getText()).matches())){
+             this.showWarning("Wrong email format!");
+             return;
+         }
 
         SessionFactory sessionFactory = Postgres.getSessionFactory();
         Session session = sessionFactory.openSession();
