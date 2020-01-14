@@ -40,7 +40,7 @@ public class LoginController {
     private void initialize() {
     }
 
-    private void showWarning(String content){
+    private void showWarning(String content) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Information Dialog");
         alert.setHeaderText(null);
@@ -52,12 +52,12 @@ public class LoginController {
     private void handleLoginAction(ActionEvent event) {
         System.out.println(loginTextField.getText());
 
-        if(loginEmailTextField.getText().isEmpty() && loginTextField.getText().isEmpty()){
+        if (loginEmailTextField.getText().isEmpty() && loginTextField.getText().isEmpty()) {
             this.showWarning("Fill email or nickname");
             return;
         }
 
-        if(!(loginEmailTextField.getText().isEmpty() || loginTextField.getText().isEmpty())){
+        if (!(loginEmailTextField.getText().isEmpty() || loginTextField.getText().isEmpty())) {
             this.showWarning("Specify only email or nickname");
             return;
         }
@@ -70,19 +70,19 @@ public class LoginController {
 
         Query query = null;
 
-        if(!loginEmailTextField.getText().isEmpty()){
+        if (!loginEmailTextField.getText().isEmpty()) {
             query = session.createQuery("from User where email = :email");
             query.setParameter("email", loginEmailTextField.getText());
         }
 
-        if(!loginTextField.getText().isEmpty()){
+        if (!loginTextField.getText().isEmpty()) {
             query = session.createQuery("from User where nickname = :nickname");
             query.setParameter("nickname", loginTextField.getText());
         }
 
         try {
             User.LOGGED_USER = (User) query.getSingleResult();
-        }catch (Exception e){
+        } catch (Exception e) {
             this.showWarning("User doesn't exist");
             e.printStackTrace();
             exists = false;
@@ -91,22 +91,23 @@ public class LoginController {
         tx.commit();
         session.close();
 
-        if(!exists)
+        if (!exists)
             return;
 
-        ((Stage)tabPane.getScene().getWindow()).close();
+        ((Stage) tabPane.getScene().getWindow()).close();
     }
 
     @FXML
     private void handleRegisterAction(ActionEvent event) {
 
         if(registrationCheckBox.isSelected() && registrationEmailTextField.getText().isEmpty()){
-            this.showWarning("fill email");
+            this.showWarning("Email address is obligatory to allow notifications");
             return;
         }
 
-        if(  registrationLoginTextField.getText().isEmpty()){
-            this.showWarning("fill login");
+        if (registrationEmailTextField.getText().isEmpty() && (registrationLoginTextField.getText().isEmpty())) {
+            this.showWarning("fill email or login");
+            return;
         }
 
         SessionFactory sessionFactory = Postgres.getSessionFactory();
@@ -115,7 +116,10 @@ public class LoginController {
 
         boolean exception = false;
 
-        User user = new User(registrationLoginTextField.getText(), registrationEmailTextField.getText(), registrationCheckBox.isSelected());
+        User user = new User();
+        user.setNickname((registrationLoginTextField.getText().isEmpty()) ? null : registrationLoginTextField.getText());
+        user.setEmail((registrationEmailTextField.getText().isEmpty()) ? null : registrationEmailTextField.getText());
+        user.setSendNotification(registrationCheckBox.isSelected());
 
         try {
             session.save(user);
@@ -123,11 +127,11 @@ public class LoginController {
             tx.commit();
 
 
-        }catch (ConstraintViolationException e){
+        } catch (ConstraintViolationException e) {
             exception = true;
 
-            if(e.getConstraintName().contains("nickname")) {
-                this.showWarning("Thin nickname is taken!");
+            if (e.getConstraintName().contains("nickname")) {
+                this.showWarning("This nickname is taken!");
             } else if (e.getConstraintName().contains("email")) {
                 this.showWarning("User associated this email already exists!");
             }
@@ -136,13 +140,13 @@ public class LoginController {
 
         session.close();
 
-        if(exception){
+        if (exception) {
             return;
         }
 
         User.LOGGED_USER = user;
 
-        ((Stage)tabPane.getScene().getWindow()).close();
+        ((Stage) tabPane.getScene().getWindow()).close();
     }
 
 

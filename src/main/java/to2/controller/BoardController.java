@@ -78,23 +78,27 @@ public class BoardController {
     }
 
 
-    private void notifyIfBestScore(GameScore gs){
+    private void notifyIfBestScoreAndPersist(int score) {
         SessionFactory sessionFactory = Postgres.getSessionFactory();
         Session session = sessionFactory.openSession();
         Transaction tx = session.beginTransaction();
+
+        GameScore gs = new GameScore();
+        gs.setScore(score);
+        gs.setUser(User.LOGGED_USER);
 
         String hql = "FROM GameScore gs WHERE gs.score > :score";
         Query query = session.createQuery(hql);
         query.setParameter("score", gs.getScore());
 
-        if(query.list().isEmpty()){
+        if (User.LOGGED_USER != null && query.list().isEmpty()) {
             hql = "FROM User u WHERE u.sendNotification IS true AND u.id = :userId";
             query = session.createQuery(hql);
             query.setParameter("userId", gs.getUser().getUserId());
 
             try {
                 JavaMail.notifyUsers(query.list());
-            }catch (Exception e ){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
@@ -105,20 +109,6 @@ public class BoardController {
         session.close();
     }
 
-    private void persistScore(int score){
-        SessionFactory sessionFactory = Postgres.getSessionFactory();
-        Session session = sessionFactory.openSession();
-        Transaction tx = session.beginTransaction();
-
-        GameScore gs = new GameScore();
-        gs.setScore(score);
-        gs.setUser(User.LOGGED_USER);
-
-        session.save(gs);
-
-        tx.commit();
-        session.close();
-    }
 
     @FXML
     private void handleNextStepAction(ActionEvent event) {
@@ -131,14 +121,8 @@ public class BoardController {
         currentRow.updateCircles(result);
 
         if (game.wonGame()) {
-            GameScore gs = new GameScore();
-            gs.setScore(game.getScore());
-            gs.setUser(User.LOGGED_USER);
-            notifyIfBestScore(gs);
+            notifyIfBestScoreAndPersist(game.getScore());
             showPopup("Your score: " + game.getScore(), "You won!", "Congratulations!");
-
-
-            this.persistScore(game.getScore());
 
         } else {
             if (it.hasPrevious()) {
@@ -182,7 +166,7 @@ public class BoardController {
         backToMainMenu();
     }
 
-    private void backToMainMenu(){
+    private void backToMainMenu() {
         Stage current = (Stage) anchorPane.getScene().getWindow();
         current.close();
         menu.show();
