@@ -44,8 +44,8 @@ public class MenuController {
     private Button okButton;
     @FXML
     private Button quitButton;
-   // @FXML
-   // private Button loginButton;
+    // @FXML
+    // private Button loginButton;
     @FXML
     private AnchorPane menuAnchorPane;
     @FXML
@@ -125,15 +125,18 @@ public class MenuController {
 
         scoreCol.setCellValueFactory(new PropertyValueFactory<>("score"));
 
-        nickCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<GameScore,String>, ObservableValue<String>>(){
+        nickCol.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<GameScore, String>, ObservableValue<String>>() {
             @Override
             public ObservableValue<String> call(TableColumn.CellDataFeatures<GameScore, String> param) {
                 User u;
-                if((u = param.getValue().getUser()) != null){
-                    return new SimpleStringProperty(u.getNickname());
-                }else{
-                    return new SimpleStringProperty("Unknown");
+                if ((u = param.getValue().getUser()) != null) {
+                    if (u.getNickname() != null) {
+                        return new SimpleStringProperty(u.getNickname());
+                    } else if (u.getEmail() != null) {
+                        return new SimpleStringProperty(u.getEmail());
+                    }
                 }
+                return new SimpleStringProperty("Unknown");
             }
         });
 
@@ -177,29 +180,15 @@ public class MenuController {
 
         menuAnchorPane.setEffect(null);
 
-        if(User.LOGGED_USER !=null){
-            playerName.setText(User.LOGGED_USER.getNickname());
+        if (User.LOGGED_USER != null) {
+
+            String s = null;
+
+            if((s = User.LOGGED_USER.getNickname()) != null || (s = User.LOGGED_USER.getEmail()) != null){
+                playerName.setText(s);
+            }
         }
-//        TextInputDialog alert = new TextInputDialog();
-//        alert.setContentText("Please enter your name:");
-//        alert.setHeaderText("Log in");
-//        alert.setTitle("Log in");
-//
-//        Optional<String> result = alert.showAndWait();
-//        if (result.isPresent()) {
-//            //TODO BAZA
-//            //if (baza.userExists(result.get())){
-//            //logowanie
-//            playerName.setText(result.get());
-//            // } else {
-
-//
-//            // }
-//        }
-//        menuAnchorPane.setEffect(null);
     }
-
-
 }
 
 
