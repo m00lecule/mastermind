@@ -34,11 +34,8 @@ public class BoardController {
 
     void setSettings(GameSettings settings) {
         this.rowsNumber = settings.getRows();
-        //TODO: make colors change influence the game
         this.colorsNumber = settings.getColors();
     }
-
-//    private GameSettings settings;
 
     private int rowsNumber;
     private int colorsNumber;
@@ -95,7 +92,7 @@ public class BoardController {
         if (query.list().isEmpty()) {
             cond = true;
             if (User.LOGGED_USER != null) {
-                hql = "FROM User u WHERE u.sendNotification IS true AND u.id = :userId";
+                hql = "FROM User u WHERE u.sendNotification IS true AND u.id != :userId";
                 query = session.createQuery(hql);
                 query.setParameter("userId", gs.getUser().getUserId());
 

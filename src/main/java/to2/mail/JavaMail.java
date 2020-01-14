@@ -45,8 +45,8 @@ public class JavaMail {
     }
 
     public void createEmailMessage(String... toEmails) throws AddressException, MessagingException {
-        String emailSubject = "Congratulations!";
-        String emailBody = "You have beaten everyone in the Mastermind game.";
+        String emailSubject = "Mastermind - it's time to play!";
+        String emailBody = "There is a new highcore, will You try to beat him?";
 
         mailSession = Session.getDefaultInstance(emailProperties, null);
         emailMessage = new MimeMessage(mailSession);
