@@ -5,7 +5,7 @@ import to2.persistance.User;
 
 
 /**
- * DAO for persisting GameScore
+ * DAO responsible for persisting GameScore
  */
 @Entity
 @Table(name="gamescores")

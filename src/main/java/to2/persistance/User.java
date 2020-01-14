@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.List;
 
 /**
- * DAO for persisting all users
+ * DAO responsible for persisting all users
  */
 @Entity
 @Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = {"nickname", "email"})})
