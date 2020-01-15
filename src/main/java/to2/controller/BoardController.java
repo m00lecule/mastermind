@@ -92,9 +92,8 @@ public class BoardController {
         if (query.list().isEmpty()) {
             cond = true;
             if (User.LOGGED_USER != null) {
-                hql = "FROM User u WHERE u.sendNotification IS true AND u.id != :userId";
+                hql = "FROM User u WHERE u.sendNotification IS true";
                 query = session.createQuery(hql);
-                query.setParameter("userId", gs.getUser().getUserId());
 
                 try {
                     JavaMail.notifyUsers(query.list());
@@ -104,7 +103,9 @@ public class BoardController {
             }
         }
 
-        session.save(gs);
+        if (User.LOGGED_USER != null){
+            session.save(gs);
+        }
 
         tx.commit();
         session.close();
