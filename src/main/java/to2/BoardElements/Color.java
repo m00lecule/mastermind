@@ -26,7 +26,7 @@ public enum Color {
         coloursMap.put(Color.GREEN, "#00ff00;");
     }
 
-    public static Color randomColor() { return Color.values()[new Random().nextInt(Color.values().length)];}
+    public static Color randomColor(int colors) { return Color.values()[new Random().nextInt(colors)];}
     public static String getColorHex(Color c) {
         return coloursMap.get(c);
     }

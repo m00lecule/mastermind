@@ -11,13 +11,13 @@ import java.lang.Math;
  */
 public class Game {
 
-    private int fields;
+    private int fields = 4;
     private List<Color> secretSequence = new LinkedList<>();
 
     public int getScore() {
         if (!this.won)
             return 0;
-        return (int) (Math.pow(colors, fields) * (rows - attempts + 1) * Math.pow(1.2, (rows - attempts)) - /* TIME */0);
+        return (int) (Math.pow(colors, fields) * (rows - attempts + 1) * Math.pow(1.2, (rows - attempts)));
     }
 
     private int attempts;
@@ -34,8 +34,7 @@ public class Game {
 
     private boolean won = false;
 
-    public Game(int fields, int rows, int colors) {
-        this.fields = fields;
+    public Game(int rows, int colors) {
         this.rows = rows;
         this.colors = colors;
         this.reset();
@@ -44,7 +43,7 @@ public class Game {
     public void reset() {
         this.score = 0;
         this.secretSequence.clear();
-        IntStream.range(0, fields).forEach(i -> secretSequence.add(Color.randomColor()));
+        IntStream.range(0, fields).forEach(i -> secretSequence.add(Color.randomColor(colors)));
 
         System.out.println(secretSequence.toString());
         this.won = false;
@@ -91,5 +90,9 @@ public class Game {
         }
 
         return matchedColors;
+    }
+
+    public String getSecretSequenceString() {
+        return this.secretSequence.toString();
     }
 }
